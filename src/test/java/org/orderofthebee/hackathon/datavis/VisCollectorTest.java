@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
+import org.alfresco.service.cmr.repository.NodeRef;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -35,7 +36,7 @@ public class VisCollectorTest {
 	}
 
 	@Test
-	public void testBasic() {
+	public void testCreate() {
 		ChildAssociationRef childAssocRef = null;
 		collector.onCreateNode(childAssocRef);
 		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
@@ -45,5 +46,17 @@ public class VisCollectorTest {
 		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 
 	}
+	
 
+	@Test
+	public void testUpdate() {
+		NodeRef nodeRef = new NodeRef(":// :/");
+		collector.onUpdateNode(nodeRef);
+		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+		collector.onUpdateNode(nodeRef);
+		assertEquals(2, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+		collector.onUpdateNode(nodeRef);
+		assertEquals(3, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+	}
+	
 }

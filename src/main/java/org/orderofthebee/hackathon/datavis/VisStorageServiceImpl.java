@@ -15,10 +15,6 @@ public class VisStorageServiceImpl implements VisStorageService {
 	@Override
 	public Object get(String tag) {
 		Object ret=storage.get(tag);
-		if(ret==null){
-			// ensure that <tag> is initialised
-			storage.put(tag,null);
-		}
 		return ret;
 	}
 

@@ -37,7 +37,7 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 
 	@Override
 	public void onUpdateNode(NodeRef nodeRef) {
-		((AtomicInteger)storageService.get("updateCounter")).getAndIncrement();
+		((AtomicInteger)storageService.get(UPDATE_COUNT_TAG)).getAndIncrement();
 	}
 
 	public void setStorageService(VisStorageService storageService) {
