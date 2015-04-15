@@ -36,7 +36,7 @@ public class VisCollectorTest {
 	}
 
 	@Test
-	public void testCreate() {
+	public void testCreateAndDelete() {
 		ChildAssociationRef childAssocRef = null;
 		collector.onCreateNode(childAssocRef);
 		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
