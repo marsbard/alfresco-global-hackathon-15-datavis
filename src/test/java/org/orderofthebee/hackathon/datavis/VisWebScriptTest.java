@@ -60,27 +60,23 @@ public class VisWebScriptTest {
 		WebScriptResponse res = mock(WebScriptResponse.class);
 		
 		StringWriter sw = new StringWriter();
-
 		when(res.getWriter()).thenReturn(sw);
-		
 		webscript.execute(null, res);
 		assertEquals("json result zero count", JSON_ZCOUNT_RES, sw.toString());
 		
-		// normally we wouldn't need to reset the stringwriter but we are mocking
-		sw.getBuffer().setLength(0);
-		
-//		
 		
 		AtomicLong al = storageService.getAtomicLong(VisCollector.CREATE_COUNT_TAG);
 		al.getAndIncrement();
 		
+		// normally we wouldn't need to reset the stringwriter but we are mocking
+		sw.getBuffer().setLength(0);
 		webscript.execute(null, res);
 		assertEquals("json result one count", JSON_1COUNT_RES, sw.toString());
 
-		sw.getBuffer().setLength(0);
 		
 		
 		storageService.getAtomicLong(VisCollector.CREATE_COUNT_TAG).getAndIncrement();
+		sw.getBuffer().setLength(0);
 		webscript.execute(null, res);
 		assertEquals("json result two count", JSON_2COUNT_RES, sw.toString());
 	}
