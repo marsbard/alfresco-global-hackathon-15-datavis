@@ -23,6 +23,7 @@ public class VisCollectorTest {
 		collector.setStorageService(storageService);
 	}
 
+
 	@Before
 	public void setUp() throws Exception {
 		collector.reset();
