@@ -31,7 +31,7 @@ public class VisCountWebScript extends AbstractWebScript {
 	    	// build a json object
 	    	JSONObject obj = new JSONObject();
 	    	
-	    	Long count = (Long) storageService.get(VisCollector.CREATE_COUNT_TAG);
+	    	Long count = storageService.getAtomicLong(VisCollector.CREATE_COUNT_TAG).get();
 	
 	    	log.debug("count=" + count);
 	    	obj.put("count", count==null?0:count);

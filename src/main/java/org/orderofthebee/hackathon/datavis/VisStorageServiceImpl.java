@@ -2,6 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class VisStorageServiceImpl implements VisStorageService {
 
@@ -18,10 +19,21 @@ public class VisStorageServiceImpl implements VisStorageService {
 		return ret;
 	}
 
+	
 	@Override
 	public void remove(String tag) {
 		storage.remove(tag);
 		
+	}
+
+	@Override
+	public AtomicLong getAtomicLong(String tag) {
+		AtomicLong ret = (AtomicLong) get(tag);
+		if(ret==null) {
+			ret=new AtomicLong();
+			put(tag,ret);
+		}
+		return ret;
 	}
 
 }
