@@ -1,0 +1,50 @@
+package org.orderofthebee.hackathon.datavis;
+
+import java.io.IOException;
+
+import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.extensions.webscripts.AbstractWebScript;
+import org.springframework.extensions.webscripts.WebScriptException;
+import org.springframework.extensions.webscripts.WebScriptRequest;
+import org.springframework.extensions.webscripts.WebScriptResponse;
+
+public class VisCountWebScript extends AbstractWebScript {
+	
+	
+	private static final Logger log = Logger.getLogger(VisCountWebScript.class);
+	
+	private VisStorageService storageService;
+
+	public void setStorageService(VisStorageService storageService) {
+		this.storageService = storageService;
+	}
+	
+	
+
+	@Override
+	public void execute(WebScriptRequest req, WebScriptResponse res)
+			throws IOException {
+    	try
+    	{
+	    	// build a json object
+	    	JSONObject obj = new JSONObject();
+	    	
+	    	Long count = (Long) storageService.get(VisCollector.CREATE_COUNT_TAG);
+	
+	    	log.debug("count=" + count);
+	    	obj.put("count", count==null?0:count);
+	    	
+	    	// build a JSON string and send it back
+	    	String jsonString = obj.toString();
+	    	res.getWriter().write(jsonString);
+    	}
+    	catch(JSONException e)
+    	{
+    		throw new WebScriptException("Unable to serialize JSON");
+    	}
+
+	}
+
+}

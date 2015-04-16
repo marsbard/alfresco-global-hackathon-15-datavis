@@ -2,7 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.NodeRef;
@@ -26,7 +26,7 @@ public class VisCollectorTest {
 	@Before
 	public void setUp() throws Exception {
 		collector.reset();
-		storageService.put(VisCollector.CREATE_COUNT_TAG, new AtomicInteger());
+		storageService.put(VisCollector.CREATE_COUNT_TAG, new AtomicLong());
 	}
 
 	@AfterClass
@@ -39,11 +39,11 @@ public class VisCollectorTest {
 	public void testCreateAndDelete() {
 		ChildAssociationRef childAssocRef = null;
 		collector.onCreateNode(childAssocRef);
-		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
+		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 		collector.onCreateNode(childAssocRef);
-		assertEquals(2, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
+		assertEquals(2, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 		collector.onDeleteNode(childAssocRef, true);
-		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
+		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 
 	}
 	
@@ -52,11 +52,11 @@ public class VisCollectorTest {
 	public void testUpdate() {
 		NodeRef nodeRef = new NodeRef(":// :/");
 		collector.onUpdateNode(nodeRef);
-		assertEquals(1, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
 		collector.onUpdateNode(nodeRef);
-		assertEquals(2, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+		assertEquals(2, (((AtomicLong) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
 		collector.onUpdateNode(nodeRef);
-		assertEquals(3, (((AtomicInteger) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
+		assertEquals(3, (((AtomicLong) storageService.get(VisCollector.UPDATE_COUNT_TAG)).intValue()));
 	}
 	
 }

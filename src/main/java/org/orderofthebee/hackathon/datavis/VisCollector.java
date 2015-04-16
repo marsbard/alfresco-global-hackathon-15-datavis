@@ -1,6 +1,6 @@
 package org.orderofthebee.hackathon.datavis;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
@@ -24,20 +24,20 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 	
 	@Override
 	public void onCreateNode(ChildAssociationRef childAssocRef) {
-		log.debug(String.format("createCounter count is %d", ((AtomicInteger) storageService.get(CREATE_COUNT_TAG)).intValue()));
-		((AtomicInteger)storageService.get(CREATE_COUNT_TAG)).getAndIncrement();
-		log.debug(String.format("createCounter count is %d", ((AtomicInteger) storageService.get(CREATE_COUNT_TAG)).intValue()));
+		log.debug(String.format("createCounter count is %d", ((AtomicLong) storageService.get(CREATE_COUNT_TAG)).intValue()));
+		((AtomicLong)storageService.get(CREATE_COUNT_TAG)).getAndIncrement();
+		log.debug(String.format("createCounter count is %d", ((AtomicLong) storageService.get(CREATE_COUNT_TAG)).intValue()));
 	}
 
 	@Override
 	public void onDeleteNode(ChildAssociationRef childAssocRef,
 			boolean isNodeArchived) {
-		((AtomicInteger)storageService.get(CREATE_COUNT_TAG)).getAndDecrement();
+		((AtomicLong)storageService.get(CREATE_COUNT_TAG)).getAndDecrement();
 	}
 
 	@Override
 	public void onUpdateNode(NodeRef nodeRef) {
-		((AtomicInteger)storageService.get(UPDATE_COUNT_TAG)).getAndIncrement();
+		((AtomicLong)storageService.get(UPDATE_COUNT_TAG)).getAndIncrement();
 	}
 
 	public void setStorageService(VisStorageService storageService) {
@@ -46,7 +46,7 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 	}
 
 	public void reset() {
-		storageService.put(CREATE_COUNT_TAG, new AtomicInteger());
-		storageService.put(UPDATE_COUNT_TAG, new AtomicInteger());
+		storageService.put(CREATE_COUNT_TAG, new AtomicLong());
+		storageService.put(UPDATE_COUNT_TAG, new AtomicLong());
 	}
 }
