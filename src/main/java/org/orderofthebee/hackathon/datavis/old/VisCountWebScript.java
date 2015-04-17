@@ -1,10 +1,12 @@
-package org.orderofthebee.hackathon.datavis;
+package org.orderofthebee.hackathon.datavis.old;
 
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.orderofthebee.hackathon.datavis.VisCollector;
+import org.orderofthebee.hackathon.datavis.VisStorageService;
 import org.springframework.extensions.webscripts.AbstractWebScript;
 import org.springframework.extensions.webscripts.WebScriptException;
 import org.springframework.extensions.webscripts.WebScriptRequest;

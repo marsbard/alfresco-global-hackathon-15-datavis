@@ -12,12 +12,39 @@
 	language governing permissions and limitations under the License. -->
 <beans>
 
-	<bean id="visStorageService" class="org.orderofthebee.hackathon.datavis.VisStorageServiceImpl" />
+	<bean id="visStorageService"
+		class="org.orderofthebee.hackathon.datavis.VisStorageServiceImpl">
+	</bean>
+
+	<bean id="visCollector" class="org.orderofthebee.hackathon.datavis.VisCollector" init-method="init">
+		<property name="policyComponent">
+			<ref bean="policyComponent" />
+		</property>
+	</bean>
 
 	<bean id="webscript.org.orderofthebee.hackathon.datavis.counter.get"
 		class="org.orderofthebee.hackathon.datavis.CounterGetWebScript"
 		parent="webscript">
-		<property name="storageService"><ref bean="visStorageService"/></property>
-	</bean>    
+		<property name="storageService">
+			<ref bean="visStorageService" />
+		</property>
+	</bean>
+
+
+	<bean
+		id="webscript.org.orderofthebee.hackathon.datavis.create-test-file.post"
+		class="org.orderofthebee.hackathon.datavis.CreateTestFilePostWebScript"
+		parent="webscript">
+		<property name="nodeService">
+			<ref bean="NodeService" />
+		</property>
+		<property name="searchService">
+			<ref bean="SearchService" />
+		</property>
+		<property name="contentService">
+			<ref bean="ContentService" />
+		</property>
+
+	</bean>
 
 </beans>

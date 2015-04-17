@@ -176,6 +176,7 @@ public class WebScriptHelper {
 			BufferedReader rd = new BufferedReader(new InputStreamReader(is,
 					Charset.forName("UTF-8")));
 			String jsonText = readAll(rd);
+			log.debug("'" + jsonText + "' returned by: " + url);
 			JSONObject json = new JSONObject(jsonText);
 			return json;
 		} finally {

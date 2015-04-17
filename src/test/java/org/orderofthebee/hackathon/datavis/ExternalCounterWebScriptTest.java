@@ -3,16 +3,8 @@ package org.orderofthebee.hackathon.datavis;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.alfresco.model.ContentModel;
-import org.alfresco.repo.content.MimetypeMap;
-import org.alfresco.service.cmr.repository.ContentWriter;
-import org.alfresco.service.cmr.repository.NodeRef;
-import org.alfresco.service.namespace.NamespaceService;
-import org.alfresco.service.namespace.QName;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.After;
@@ -22,8 +14,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class ExternalCounterWebScriptTest {
+	
+	private static final Logger log = Logger
+			.getLogger(ExternalCounterWebScriptTest.class);
 
-	private static final String COUNTER_SCRIPT = "/ootb/counters.json?guest=true";
+	private static final String COUNTER_SCRIPT = "ootb/datavis/counters.json?guest=true";
+	private static final String CREATE_FILE_SCRIPT = "ootb/datavis/create-test-file.json?guest=true";
+	
 	static WebScriptHelper helper;
 
 	String baseUrl = TestMeta.BASE_URL;
@@ -48,9 +45,19 @@ public class ExternalCounterWebScriptTest {
 	@Test
 	public void test() throws IOException, JSONException {
 		JSONObject json = helper.readJsonFromUrl(baseUrl + COUNTER_SCRIPT);
-
 		assertEquals(0, json.get("createCount"));
+		
+		String url= baseUrl + CREATE_FILE_SCRIPT;
 
+		json = helper.readJsonFromInputStream(helper.post(url));
+		assertEquals(1, json.get("numCreated"));
+
+		log.debug("Look I really made a node: " + json.get("nodeRefStr"));
+		
+		json = helper.readJsonFromUrl(baseUrl + COUNTER_SCRIPT);
+		log.debug("count=" + json.get("createCount"));
+		assertEquals(1, json.get("createCount"));
+		
 	}
 
 }

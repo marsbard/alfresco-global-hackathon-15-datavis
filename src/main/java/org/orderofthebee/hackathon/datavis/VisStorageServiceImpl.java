@@ -13,10 +13,15 @@ public class VisStorageServiceImpl implements VisStorageService {
 			.getLogger(VisStorageServiceImpl.class);
 	
 	
+	public VisStorageServiceImpl() {
+		log.debug("starting VisStorageServiceImpl");
+	}
+	
 	Map<String, Object> storage = new ConcurrentHashMap<String, Object>();
 	
 	@Override
 	public void put(String tag, Object value) {
+		log.debug("Storing " + tag + " = " + value);
 		storage.put(tag, value);
 	}
 
@@ -37,6 +42,7 @@ public class VisStorageServiceImpl implements VisStorageService {
 	public AtomicLong getAtomicLong(String tag) {
 		AtomicLong ret = (AtomicLong) get(tag);
 		if(ret==null) {
+			log.debug("Got null for tag '" + tag + "', setting 0");
 			ret=new AtomicLong();
 			ret.set(0);
 			put(tag,ret);

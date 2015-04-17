@@ -2,14 +2,14 @@
 
 var serviceUrl = "http://localhost:8080/alfresco/s/ootb/counters.json?guest=true"
 
-
-var getCounters = function(){
-	$.ajax({
-		url: serviceUrl,	
-		error: ajaxError,
-		success: pokeBallVectors,
-	});
-}
+//
+//var getCounters = function(){
+//	$.ajax({
+//		url: serviceUrl,	
+//		error: ajaxError,
+//		success: pokeBallVectors,
+//	});
+//}
 
 function ajaxError(msg){
 	alert("Error during ajax: " + msg);
@@ -31,11 +31,11 @@ var pokeBallVectors = function(d){
 //	}
 //}
 
-setTimeout(fakeit, 100);
-
-var fakeit= function(){
-	alert("blah");
-};
+//setTimeout(fakeit, 100);
+//
+//var fakeit= function(){
+//	alert("blah");
+//};
 
 
 var Ball = function(point, vector) {

@@ -1,4 +1,4 @@
-package org.orderofthebee.hackathon.datavis;
+package org.orderofthebee.hackathon.datavis.old;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -14,6 +14,9 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.orderofthebee.hackathon.datavis.VisCollector;
+import org.orderofthebee.hackathon.datavis.VisStorageService;
+import org.orderofthebee.hackathon.datavis.VisStorageServiceImpl;
 import org.springframework.extensions.webscripts.WebScriptResponse;
 
 public class VisWebScriptTest {
