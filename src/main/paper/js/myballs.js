@@ -1,5 +1,25 @@
 /* My Balls */
 
+var serviceUrl = "http://localhost:8080/alfresco/s/ootb/counters.json?guest=true"
+
+
+var getCounters = function(){
+	$.ajax({
+		url: serviceUrl,	
+		error: ajaxError,
+		success: pokeBallVectors,
+	});
+}
+
+function ajaxError(msg){
+	alert("Error during ajax: " + msg);
+}
+
+var pokeBallVectors = function(d){
+	alert("pokeBallVectors:" + d);
+}
+
+setTimeout(getCounters, 1000);
 
 var Ball = function(point, vector) {
 	if (!vector || vector.isZero()) {
@@ -54,7 +74,7 @@ Ball.prototype.iterate = function() {
 		this.vector.x *= -this.dampen;
 	
 	// bouncing
-	if (pre.y < this.radius || pre.y > size.height - this.radius) {
+	if (pre.y <= this.radius || pre.y >= size.height - this.radius) {
 //		if (Math.abs(this.vector.x) < 3)
 //			this.vector = Point.random() * [150, 100] + [-75, 20];
 		this.vector.y *= this.bounce;
@@ -62,7 +82,7 @@ Ball.prototype.iterate = function() {
 
 	var max = Point.max(this.radius, this.point + this.vector);
 	this.item.position = this.point = Point.min(max, size - this.radius);
-	this.item.rotate(this.vector.x);
+//	this.item.rotate(Math.random()*10-5);
 };
 
 
