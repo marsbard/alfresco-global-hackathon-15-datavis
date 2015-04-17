@@ -5,12 +5,16 @@ import java.util.Map;
 
 import javax.transaction.Status;
 
+import org.apache.log4j.Logger;
 import org.springframework.extensions.webscripts.Cache;
 import org.springframework.extensions.webscripts.DeclarativeWebScript;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 
 public class CounterGetWebScript extends DeclarativeWebScript {
 
+	
+	private static final Logger log = Logger
+			.getLogger(CounterGetWebScript.class);
 
 	private VisStorageService storageService;
 
@@ -29,9 +33,14 @@ public class CounterGetWebScript extends DeclarativeWebScript {
 		Long updateCount = storageService.getAtomicLong(VisCollector.UPDATE_COUNT_TAG).get();
 		Long deleteCount = storageService.getAtomicLong(VisCollector.DELETE_COUNT_TAG).get();
 		
+		log.error ("!!!!!!!!!!!!!!!!createCount=" + createCount);
+		
 		model.put("createCount", createCount);
 		model.put("updateCount", updateCount);
 		model.put("deleteCount", deleteCount);
+		
+		log.debug ("model.get(createCount)=" + model.get("createCount"));
+		
 		
 		return model;
 	
