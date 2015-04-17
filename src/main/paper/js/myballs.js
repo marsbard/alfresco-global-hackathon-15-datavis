@@ -19,7 +19,24 @@ var pokeBallVectors = function(d){
 	alert("pokeBallVectors:" + d);
 }
 
-setTimeout(getCounters, 1000);
+//var vectors = [];
+
+//setTimeout(fakeCounters,1000);
+//var fakeCounters = function(){
+//	alert("HOASD");
+//	for(var i=0; i<3; i++){
+//		var kick=Math.random()*10;
+//		alert(i + "=" + kick);
+//		balls[i].vector.y -= kick;
+//	}
+//}
+
+setTimeout(fakeit, 100);
+
+var fakeit= function(){
+	alert("blah");
+};
+
 
 var Ball = function(point, vector) {
 	if (!vector || vector.isZero()) {
@@ -63,7 +80,7 @@ var Ball = function(point, vector) {
 	});
 }
 
-Ball.prototype.iterate = function() {
+Ball.prototype.iterate = function(ballIdx) {
 	var size = view.size;
 	this.vector.y += this.gravity;
 //	this.vector.x *= 0.99;
@@ -80,6 +97,7 @@ Ball.prototype.iterate = function() {
 		this.vector.y *= this.bounce;
 	}
 
+	
 	var max = Point.max(this.radius, this.point + this.vector);
 	this.item.position = this.point = Point.min(max, size - this.radius);
 //	this.item.rotate(Math.random()*10-5);
