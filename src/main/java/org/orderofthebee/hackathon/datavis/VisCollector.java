@@ -15,6 +15,7 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 
 	public static final String CREATE_COUNT_TAG = "createCount";
 	public static final String UPDATE_COUNT_TAG = "updateCount";
+	public static final String DELETE_COUNT_TAG = "deleteCount";
 	
 	VisStorageService storageService;
 	
@@ -24,20 +25,18 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 	
 	@Override
 	public void onCreateNode(ChildAssociationRef childAssocRef) {
-		log.debug(String.format("createCounter count is %d", ((AtomicLong) storageService.get(CREATE_COUNT_TAG)).intValue()));
-		((AtomicLong)storageService.get(CREATE_COUNT_TAG)).getAndIncrement();
-		log.debug(String.format("createCounter count is %d", ((AtomicLong) storageService.get(CREATE_COUNT_TAG)).intValue()));
+		storageService.getAtomicLong(CREATE_COUNT_TAG).getAndIncrement();
 	}
 
 	@Override
 	public void onDeleteNode(ChildAssociationRef childAssocRef,
 			boolean isNodeArchived) {
-		((AtomicLong)storageService.get(CREATE_COUNT_TAG)).getAndDecrement();
+		storageService.getAtomicLong(DELETE_COUNT_TAG).getAndIncrement();
 	}
 
 	@Override
 	public void onUpdateNode(NodeRef nodeRef) {
-		((AtomicLong)storageService.get(UPDATE_COUNT_TAG)).getAndIncrement();
+		storageService.getAtomicLong(UPDATE_COUNT_TAG).getAndIncrement();
 	}
 
 	public void setStorageService(VisStorageService storageService) {

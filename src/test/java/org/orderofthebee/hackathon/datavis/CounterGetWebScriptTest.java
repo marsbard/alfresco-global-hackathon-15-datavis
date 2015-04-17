@@ -2,6 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import static org.junit.Assert.assertEquals;
 
+
 import java.util.Map;
 
 import javax.transaction.Status;
@@ -57,22 +58,32 @@ public class CounterGetWebScriptTest {
 		Map<String, Object> map = counterGet.executeImpl(req, status, cache);
 		assertEquals("zero", 0L,  map.get("createCount"));
 		assertEquals("zero", 0L,  map.get("updateCount"));
+		assertEquals("zero", 0L,  map.get("deleteCount"));
 		
 		collector.onCreateNode(childAssocRef);
 		map = counterGet.executeImpl(req, status, cache);
 		assertEquals("one", 1L,  map.get("createCount"));
 		assertEquals("zero", 0L,  map.get("updateCount"));
+		assertEquals("zero", 0L,  map.get("deleteCount"));
 		
 		collector.onUpdateNode(nodeRef);
 		map = counterGet.executeImpl(req, status, cache);
 		assertEquals("one", 1L,  map.get("createCount"));
 		assertEquals("one", 1L,  map.get("updateCount"));
+		assertEquals("zero", 0L,  map.get("deleteCount"));
 		
 		collector.onDeleteNode(childAssocRef, false);
 		map = counterGet.executeImpl(req, status, cache);
-		assertEquals("zero", 0L,  map.get("createCount"));
+		assertEquals("one", 1L,  map.get("createCount"));
 		assertEquals("one", 1L,  map.get("updateCount"));
+		assertEquals("one", 1L,  map.get("deleteCount"));
 		
+		
+		collector.onUpdateNode(nodeRef);
+		map = counterGet.executeImpl(req, status, cache);
+		assertEquals("one", 1L,  map.get("createCount"));
+		assertEquals("two", 2L,  map.get("updateCount"));
+		assertEquals("one", 1L,  map.get("deleteCount"));
 		
 	}
 

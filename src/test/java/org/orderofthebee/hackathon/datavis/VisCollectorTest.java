@@ -2,6 +2,9 @@ package org.orderofthebee.hackathon.datavis;
 
 import static org.junit.Assert.assertEquals;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
@@ -38,13 +41,14 @@ public class VisCollectorTest {
 
 	@Test
 	public void testCreateAndDelete() {
-		ChildAssociationRef childAssocRef = null;
+		ChildAssociationRef childAssocRef = mock(ChildAssociationRef.class);
 		collector.onCreateNode(childAssocRef);
 		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 		collector.onCreateNode(childAssocRef);
 		assertEquals(2, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
 		collector.onDeleteNode(childAssocRef, true);
-		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
+		assertEquals(2, (((AtomicLong) storageService.get(VisCollector.CREATE_COUNT_TAG)).intValue()));
+		assertEquals(1, (((AtomicLong) storageService.get(VisCollector.DELETE_COUNT_TAG)).intValue()));
 
 	}
 	
