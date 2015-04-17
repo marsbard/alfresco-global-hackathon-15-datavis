@@ -12,11 +12,6 @@ public class VisStorageServiceImpl implements VisStorageService {
 	private static final Logger log = Logger
 			.getLogger(VisStorageServiceImpl.class);
 	
-	public VisStorageServiceImpl() {
-		log.debug("%%%%%%%%%%%%%%%%%%%%%% debug showing");
-		log.error("%%%%%%%%%%%%%%%%%%%%%% error showing");
-	}
-	
 	
 	Map<String, Object> storage = new ConcurrentHashMap<String, Object>();
 	

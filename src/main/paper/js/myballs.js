@@ -1,9 +1,29 @@
 /* My Balls */
 
+var serviceUrl = "http://localhost:8080/alfresco/s/ootb/counters.json?guest=true"
+
+
+var getCounters = function(){
+	$.ajax({
+		url: serviceUrl,	
+		error: ajaxError,
+		success: pokeBallVectors,
+	});
+}
+
+function ajaxError(msg){
+	alert("Error during ajax: " + msg);
+}
+
+var pokeBallVectors = function(d){
+	alert("pokeBallVectors:" + d);
+}
+
+setTimeout(getCounters, 1000);
 
 var Ball = function(point, vector) {
 	if (!vector || vector.isZero()) {
-		this.vector = Point.random() * 5;
+//		this.vector = Point.random() * 5;
 	} else {
 		this.vector = vector * 2;
 	}
@@ -19,7 +39,8 @@ var Ball = function(point, vector) {
 	};
 	var gradient = new Gradient([color, 'black'], true);
 
-	var radius = this.radius = 50 * Math.random() + 30;
+//	var radius = this.radius = 50 * Math.random() + 30;
+	var radius= this.radius = 40;
 	// Wrap CompoundPath in a Group, since CompoundPaths directly 
 	// applies the transformations to the content, just like Path.
 	var ball = new CompoundPath({
@@ -45,46 +66,69 @@ var Ball = function(point, vector) {
 Ball.prototype.iterate = function() {
 	var size = view.size;
 	this.vector.y += this.gravity;
-	this.vector.x *= 0.99;
+//	this.vector.x *= 0.99;
 	var pre = this.point + this.vector;
+	
+	// some x dampening probably no longer relevant (marsbard)
 	if (pre.x < this.radius || pre.x > size.width - this.radius)
 		this.vector.x *= -this.dampen;
-	if (pre.y < this.radius || pre.y > size.height - this.radius) {
-		if (Math.abs(this.vector.x) < 3)
-			this.vector = Point.random() * [150, 100] + [-75, 20];
+	
+	// bouncing
+	if (pre.y <= this.radius || pre.y >= size.height - this.radius) {
+//		if (Math.abs(this.vector.x) < 3)
+//			this.vector = Point.random() * [150, 100] + [-75, 20];
 		this.vector.y *= this.bounce;
 	}
 
 	var max = Point.max(this.radius, this.point + this.vector);
 	this.item.position = this.point = Point.min(max, size - this.radius);
-	this.item.rotate(this.vector.x);
+//	this.item.rotate(Math.random()*10-5);
 };
 
 
 var balls = [];
-for (var i = 0; i < 1; i++) {
-	var position = Point.random() * view.size,
-		vector = (Point.random() - [0.5, 0]) * [50, 100],
+for (var i = 0; i < 3; i++) {
+	//var position = Point.random() * view.size,
+		//vector = (Point.random() - [0.5, 0]) * [50, 100],
+	var position= new Point(i*300, 50),
+		vector = new Point(0, 10),
 		ball = new Ball(position, vector);
 	balls.push(ball);
 }
 
+var fontSize='16pt';
 var textItem = new PointText({
-	point: [20, 30],
+	point: [0, 30],
 	fillColor: 'black',
-	content: 'Click, drag and release to add balls.'
+	fontSize: fontSize,
+	content: 'onCreateNode'
 });
 
-var lastDelta;
-function onMouseDrag(event) {
-	lastDelta = event.delta;
-}
+var textItem = new PointText({
+	point: [200, 30],
+	fillColor: 'black',
+	fontSize: fontSize,
+	content: 'onUpdateNode'
+});
 
-function onMouseUp(event) {
-	var ball = new Ball(event.point, lastDelta);
-	balls.push(ball);
-	lastDelta = null;
-}
+var textItem = new PointText({
+	point: [400, 30],
+	fillColor: 'black',
+	fontSize: fontSize,
+	content: 'onDeleteNode'
+});
+
+
+//var lastDelta;
+//function onMouseDrag(event) {
+//	lastDelta = event.delta;
+//}
+//
+//function onMouseUp(event) {
+//	var ball = new Ball(event.point, lastDelta);
+//	balls.push(ball);
+//	lastDelta = null;
+//}
 
 function onFrame() {
 	for (var i = 0, l = balls.length; i < l; i++)
