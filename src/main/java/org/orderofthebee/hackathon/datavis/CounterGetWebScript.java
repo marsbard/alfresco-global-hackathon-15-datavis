@@ -2,12 +2,12 @@ package org.orderofthebee.hackathon.datavis;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.transaction.Status;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.apache.log4j.Logger;
 import org.springframework.extensions.webscripts.Cache;
 import org.springframework.extensions.webscripts.DeclarativeWebScript;
+import org.springframework.extensions.webscripts.Status;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 
 public class CounterGetWebScript extends DeclarativeWebScript {
@@ -33,13 +33,9 @@ public class CounterGetWebScript extends DeclarativeWebScript {
 		Long updateCount = storageService.getAtomicLong(VisCollector.UPDATE_COUNT_TAG).get();
 		Long deleteCount = storageService.getAtomicLong(VisCollector.DELETE_COUNT_TAG).get();
 		
-		log.debug ("!!!!!!!!!!!!!!!!createCount=" + createCount);
-		
 		model.put("createCount", createCount);
 		model.put("updateCount", updateCount);
 		model.put("deleteCount", deleteCount);
-		
-		log.debug ("model.get(createCount)=" + model.get("createCount"));
 		
 		
 		return model;

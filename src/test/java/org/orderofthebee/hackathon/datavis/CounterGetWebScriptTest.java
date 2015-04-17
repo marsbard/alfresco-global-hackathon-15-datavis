@@ -2,10 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import static org.junit.Assert.assertEquals;
 
-
 import java.util.Map;
-
-import javax.transaction.Status;
 
 import org.alfresco.service.cmr.repository.ChildAssociationRef;
 import org.alfresco.service.cmr.repository.NodeRef;
@@ -15,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.extensions.webscripts.Cache;
+import org.springframework.extensions.webscripts.Status;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 
 public class CounterGetWebScriptTest {
