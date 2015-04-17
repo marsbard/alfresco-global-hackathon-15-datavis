@@ -31,6 +31,7 @@ public class VisStorageServiceImpl implements VisStorageService {
 		AtomicLong ret = (AtomicLong) get(tag);
 		if(ret==null) {
 			ret=new AtomicLong();
+			ret.set(0);
 			put(tag,ret);
 		}
 		return ret;
