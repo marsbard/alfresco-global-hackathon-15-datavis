@@ -14,7 +14,7 @@
 
 	<bean id="visStorageService" class="org.orderofthebee.hackathon.datavis.VisStorageServiceImpl" />
 
-	<bean id="webscript.org.bettercode.hackathon.datavis.counter.get"
+	<bean id="webscript.org.orderofthebee.hackathon.datavis.counter.get"
 		class="org.orderofthebee.hackathon.datavis.CounterGetWebScript"
 		parent="webscript">
 		<property name="storageService"><ref bean="visStorageService"/></property>

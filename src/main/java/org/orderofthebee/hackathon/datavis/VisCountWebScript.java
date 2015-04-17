@@ -10,6 +10,7 @@ import org.springframework.extensions.webscripts.WebScriptException;
 import org.springframework.extensions.webscripts.WebScriptRequest;
 import org.springframework.extensions.webscripts.WebScriptResponse;
 
+@Deprecated
 public class VisCountWebScript extends AbstractWebScript {
 	
 	

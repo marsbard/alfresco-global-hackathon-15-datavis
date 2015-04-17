@@ -4,8 +4,20 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.apache.log4j.Logger;
+
 public class VisStorageServiceImpl implements VisStorageService {
 
+	
+	private static final Logger log = Logger
+			.getLogger(VisStorageServiceImpl.class);
+	
+	public VisStorageServiceImpl() {
+		log.debug("%%%%%%%%%%%%%%%%%%%%%% debug showing");
+		log.error("%%%%%%%%%%%%%%%%%%%%%% error showing");
+	}
+	
+	
 	Map<String, Object> storage = new ConcurrentHashMap<String, Object>();
 	
 	@Override
