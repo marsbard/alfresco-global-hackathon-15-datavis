@@ -45,9 +45,7 @@ public class ExternalCounterWebScriptTest {
 	@Test
 	public void test() throws IOException, JSONException {
 		JSONObject json = helper.readJsonFromUrl(baseUrl + COUNTER_SCRIPT);
-		String baseCountStr =  (String) json.get("createCount");
-		
-		Long baseCount = Long.parseLong(baseCountStr);
+		Long baseCount =  json.getLong("createCount");
 		
 		String url= baseUrl + CREATE_FILE_SCRIPT;
 
@@ -58,7 +56,7 @@ public class ExternalCounterWebScriptTest {
 		
 		json = helper.readJsonFromUrl(baseUrl + COUNTER_SCRIPT);
 		log.debug("count=" + json.get("createCount"));
-		assertEquals(baseCount + 1, json.get("createCount"));
+		assertEquals(baseCount + 1, json.getLong("createCount"));
 		
 	}
 
