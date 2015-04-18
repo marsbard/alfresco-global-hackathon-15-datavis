@@ -32,7 +32,7 @@ ftab = ftab + "</tr>"
 ftab = ftab + "</table>"
 weprep = weprep + ftab
 
-cmurl = 'https://' + hostname + '/alfresco/cmisatom'
+cmurl = hostname + '/alfresco/cmisatom'
 client = CmisClient(cmurl,'admin','admin')
 
 sitename =  'alfresco-hackathon'
