@@ -2,6 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.alfresco.model.ContentModel;
 import org.alfresco.repo.node.NodeServicePolicies;
 import org.alfresco.repo.policy.Behaviour;
 import org.alfresco.repo.policy.Behaviour.NotificationFrequency;
@@ -39,23 +40,20 @@ public class VisCollector implements NodeServicePolicies.OnDeleteNodePolicy,
 	    // Bind behaviours to node policies
 	    this.getPolicyComponent().bindClassBehaviour(
 	        QName.createQName(NamespaceService.ALFRESCO_URI, "onCreateNode"),
-//	        QName.createQName(SomeCoModel.NAMESPACE_SOMECO_CONTENT_MODEL, SomeCoModel.TYPE_SC_RATING),
-	        null,
+	        ContentModel.TYPE_CONTENT,
 	        this.onCreateNode
 	    );
 	    
-//        Qname.createQName(SomeCoModel.NAMESPACE_SOMECO_CONTENT_MODEL, SomeCoModel.TYPE_SC_RATING),
 
 	    this.getPolicyComponent().bindClassBehaviour(
 	        QName.createQName(NamespaceService.ALFRESCO_URI, "onDeleteNode"),
-	        null,
+	        ContentModel.TYPE_CONTENT,
 	        this.onDeleteNode
 	    );
 	    
 	    this.getPolicyComponent().bindClassBehaviour(
 		        QName.createQName(NamespaceService.ALFRESCO_URI, "onUpdateNode"),
-//		        Qname.createQName(SomeCoModel.NAMESPACE_SOMECO_CONTENT_MODEL, SomeCoModel.TYPE_SC_RATING),
-		        null,
+		        ContentModel.TYPE_CONTENT,
 		        this.onUpdateNode
 		    );
 	}

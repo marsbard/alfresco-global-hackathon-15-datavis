@@ -16,9 +16,13 @@
 		class="org.orderofthebee.hackathon.datavis.VisStorageServiceImpl">
 	</bean>
 
-	<bean id="visCollector" class="org.orderofthebee.hackathon.datavis.VisCollector" init-method="init">
+	<bean id="visCollector" class="org.orderofthebee.hackathon.datavis.VisCollector"
+		init-method="init">
 		<property name="policyComponent">
 			<ref bean="policyComponent" />
+		</property>
+		<property name="storageService">
+			<ref bean="visStorageService" />
 		</property>
 	</bean>
 
