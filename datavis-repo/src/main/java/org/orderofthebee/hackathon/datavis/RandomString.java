@@ -2,6 +2,7 @@ package org.orderofthebee.hackathon.datavis;
 
 import java.util.Random;
 
+//	http://stackoverflow.com/a/41156/370191
 public class RandomString {
 
 	private static final char[] symbols;

@@ -92,6 +92,7 @@ public class CreateTestFilePostWebScript extends DeclarativeWebScript {
 		    rs.close();
 		}
 
+		// 	http://stackoverflow.com/a/41156/370191
 		String filename = randomString.nextString() + ".txt";
 		
 		NodeRef newNode = createContentNode(companyHomeNodeRef, filename, "blah blah");
