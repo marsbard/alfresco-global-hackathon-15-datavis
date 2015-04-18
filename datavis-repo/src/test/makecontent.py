@@ -5,7 +5,7 @@ from cmislib.model import CmisClient, Repository
 
 if len(sys.argv) != 5:
 	print "Syntax: makecontent.py <hostname> <foldername> <numofiterations> <doupdate>"
-	print "eg: python makecontent.py localhost site1 100 Y"
+	print "eg: python makecontent.py http://localhost:8080/alfresco/cmisatom site1 100 Y"
 	sys.exit()
 
 hostname = sys.argv[1]
@@ -32,7 +32,7 @@ ftab = ftab + "</tr>"
 ftab = ftab + "</table>"
 weprep = weprep + ftab
 
-cmurl = hostname + '/alfresco/cmisatom'
+cmurl = hostname
 client = CmisClient(cmurl,'admin','admin')
 
 sitename =  'alfresco-hackathon'
