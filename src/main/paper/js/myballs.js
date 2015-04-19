@@ -1,33 +1,46 @@
 /* My Balls */
 
-var serviceUrl = "http://localhost:8080/alfresco/s/ootb/datavis/counters.json?guest=true"
+var serviceUrl = "http://localhost:8080/alfresco/s/ootb/counters.json?guest=true"
 
-
-var getCounters = function(){
-	$.ajax({
-		url: serviceUrl,	
-		error: ajaxError,
-		success: pokeBallVectors,
-	});
-}
+//
+//var getCounters = function(){
+//	$.ajax({
+//		url: serviceUrl,	
+//		error: ajaxError,
+//		success: pokeBallVectors,
+//	});
+//}
 
 function ajaxError(msg){
-	
-	alert("Error during ajax: " + JSON.stringify(msg));
+	alert("Error during ajax: " + msg);
 }
 
 var pokeBallVectors = function(d){
 	alert("pokeBallVectors:" + d);
 }
 
-setInterval(getCounters, 1000);
+//var vectors = [];
 
+//setTimeout(fakeCounters,1000);
+//var fakeCounters = function(){
+//	alert("HOASD");
+//	for(var i=0; i<3; i++){
+//		var kick=Math.random()*10;
+//		alert(i + "=" + kick);
+//		balls[i].vector.y -= kick;
+//	}
+//}
+
+//setTimeout(fakeit, 100);
+//
+//var fakeit= function(){
+//	alert("blah");
+//};
 
 
 var Ball = function(point, vector) {
 	if (!vector || vector.isZero()) {
 //		this.vector = Point.random() * 5;
-		this.vector = Point(0,-.1);
 	} else {
 		this.vector = vector * 2;
 	}
