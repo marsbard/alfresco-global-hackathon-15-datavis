@@ -1,6 +1,6 @@
 /* My Balls */
 
-var serviceUrl = "http://localhost:8080/alfresco/s/ootb/counters.json?guest=true"
+var serviceUrl = "/alfresco/s/ootb/counters.json?guest=true"
 
 //
 //var getCounters = function(){
