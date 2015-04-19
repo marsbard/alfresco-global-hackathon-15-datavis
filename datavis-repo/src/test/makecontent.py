@@ -84,7 +84,15 @@ if doupdate == "Y":
 				newprop = { 'cmis:description': 'some new description'} 
 				doc = repo.getObjectByPath(rootofwn + '/' + result.name)	
 				doc.updateProperties(newprop)
-
 if doupdate != "Y":
 	rootfolder = repo.getObjectByPath(rootofwn)
-	rootfolder.deleteTree()
+	try:
+		rootfolder.deleteTree()
+	except:
+		print "Cant Delete might be timing, lets wait for 30s and try again"
+		time.sleep(60)
+		try:
+			rootfolder.deleteTree()
+		except:
+			print "Still cant delete after 30s wait"
+		
