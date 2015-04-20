@@ -2,7 +2,8 @@
 
 var serviceUrl = "http://localhost:8080/alfresco/s/ootb/datavis/counters.json?guest=true"
 
-
+var interval=600
+var ykick_scale=10
 
 
 var G={};
@@ -26,7 +27,7 @@ var pokeBallVectors = function(d){
 	G.counts.updated = d.updateCount;
 	G.counts.deleted = d.deleteCount;
 	
-	setTimeout(500, getCounters());
+	setTimeout(interval, getCounters());
 }
 var getCounters = function(){
 	$.ajax({
@@ -49,13 +50,14 @@ var getInitialCounts = function(){
 		}
 	})
 
-	setTimeout(500, getCounters());
+	setTimeout(interval, getCounters());
 
 }
 getInitialCounts();
 
 function ajaxError(msg){
-	alert("Error during ajax: " + msg);
+	//alert("Error during ajax: " + msg);
+	// just ignore it
 }
 
 
@@ -166,7 +168,7 @@ Ball.prototype.iterate = function(ballIdx) {
 	}
 
 	// hackathon - here is where we kick the balls vertically
-	this.vector.y -= this.ykick;
+	this.vector.y -= this.ykick * ykick_scale;
 	this.ykick=0;
 	
 	
