@@ -2,8 +2,9 @@
 
 var serviceUrl = "http://localhost:8080/alfresco/s/ootb/datavis/counters.json?guest=true"
 
-var interval=600
-var ykick_scale=10
+var interval=600;
+var stagger=200;
+var ykick_scale=4;
 
 
 var G={};
@@ -23,11 +24,14 @@ var pokeBallVectors = function(d){
 	// here we just set the values, the ball loop will
 	// take them off, work out diffs and set the prev values
 	
-	G.counts.created = d.createCount;
-	G.counts.updated = d.updateCount;
-	G.counts.deleted = d.deleteCount;
+//	G.counts.created = d.createCount;
+//	G.counts.updated = d.updateCount;
+//	G.counts.deleted = d.deleteCount;
 	
-	setTimeout(interval, getCounters());
+	setTimeout(function(){G.counts.created=d.createCount}, stagger * 0);
+	setTimeout(function(){G.counts.updated=d.updateCount}, stagger * 1);
+	setTimeout(function(){G.counts.deleted=d.deleteCount}, stagger * 2);
+	
 }
 var getCounters = function(){
 	$.ajax({
@@ -50,7 +54,7 @@ var getInitialCounts = function(){
 		}
 	})
 
-	setTimeout(interval, getCounters());
+	setInterval(getCounters, interval);
 
 }
 getInitialCounts();
@@ -61,47 +65,39 @@ function ajaxError(msg){
 }
 
 
-//var vectors = [];
-
-//setTimeout(fakeCounters,1000);
-//var fakeCounters = function(){
-//	alert("HOASD");
-//	for(var i=0; i<3; i++){
-//		var kick=Math.random()*10;
-//		alert(i + "=" + kick);
-//		balls[i].vector.y -= kick;
-//	}
-//}
-
-//setTimeout(fakeit, 100);
-//
-//var fakeit= function(){
-//	alert("blah");
-//};
-
 
 var checkDiff = function(what){
 	var diff=0;
+	var thiscount=0;
 	switch(what){
 	case "created":
 		if(G.counts.created != G.prev.created ){
 			diff = G.counts.created - G.prev.created;
 			G.prev.created = G.counts.created;
+			thiscount=G.counts.created;
 		}
 		break;
 	case "updated":
 		if(G.counts.updated != G.prev.updated ){
 			diff = G.counts.updated - G.prev.updated;
 			G.prev.updated = G.counts.updated;
-			}
+			thiscount=G.counts.updated;
+		}
 		break;
 	case "deleted":
 		if(G.counts.deleted != G.prev.deleted ){
 			diff = G.counts.deleted - G.prev.deleted;
 			G.prev.deleted = G.counts.deleted;
+			thiscount=G.counts.deleted;
 		}
 		break;
 	}
+	if(console) {
+		if(diff > 0)
+		console.log(what + " diff " + diff + " #" + thiscount);
+	}
+
+	
 	return diff
 }
 
@@ -211,16 +207,6 @@ var textItem = new PointText({
 });
 
 
-//var lastDelta;
-//function onMouseDrag(event) {
-//	lastDelta = event.delta;
-//}
-//
-//function onMouseUp(event) {
-//	var ball = new Ball(event.point, lastDelta);
-//	balls.push(ball);
-//	lastDelta = null;
-//}
 
 function onFrame() {
 	for (var i = 0, l = balls.length; i < l; i++){
