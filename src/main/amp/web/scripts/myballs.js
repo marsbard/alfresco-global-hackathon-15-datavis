@@ -1,6 +1,6 @@
 /* My Balls */
 
-var serviceUrl = "http://localhost:8080/alfresco/s/ootb/datavis/counters.json?guest=true"
+var serviceUrl = "/alfresco/s/ootb/datavis/counters.json?guest=true"
 
 var interval=900;
 var stagger=300;
