@@ -1,5 +1,5 @@
 {
-	"createCount": ${createCount},
-	"deleteCount": ${deleteCount},
-	"updateCount": ${updateCount}
+	"createCount": "${createCount}",
+	"deleteCount": "${deleteCount}",
+	"updateCount": "${updateCount}"
 }

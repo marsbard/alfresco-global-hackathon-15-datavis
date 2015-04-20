@@ -32,9 +32,9 @@ public class CounterGetWebScript extends DeclarativeWebScript {
 		Long deleteCount = storageService.getAtomicLong(
 				VisCollector.DELETE_COUNT_TAG).get();
 
-		model.put("createCount", createCount);
-		model.put("updateCount", updateCount);
-		model.put("deleteCount", deleteCount);
+		model.put("createCount", createCount+"");
+		model.put("updateCount", updateCount+"");
+		model.put("deleteCount", deleteCount+"");
 
 		return model;
 

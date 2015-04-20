@@ -2,8 +2,8 @@
 
 var serviceUrl = "http://localhost:8080/alfresco/s/ootb/datavis/counters.json?guest=true"
 
-var interval=600;
-var stagger=200;
+var interval=900;
+var stagger=300;
 var ykick_scale=4;
 
 
@@ -92,10 +92,10 @@ var checkDiff = function(what){
 		}
 		break;
 	}
-	if(console) {
-		if(diff > 0)
-		console.log(what + " diff " + diff + " #" + thiscount);
-	}
+//	if(console) {
+//		if(diff > 0)
+//		console.log(what + " diff " + diff + " #" + thiscount);
+//	}
 
 	
 	return diff
