@@ -160,7 +160,7 @@ Ball.prototype.iterate = function(ballIdx) {
 	if (pre.y <= this.radius || pre.y >= size.height - this.radius) {
 //		if (Math.abs(this.vector.x) < 3)
 //			this.vector = Point.random() * [150, 100] + [-75, 20];
-		this.vector.y *= this.bounce;
+			this.vector.y *= this.bounce;			
 	}
 
 	// hackathon - here is where we kick the balls vertically
