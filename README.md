@@ -2,7 +2,7 @@
 the idea is to take the behaviours layer and surface some of the underlying
 activity in an alfresco instance for visualisation
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/z3w4_VGAusM/0.jpg)](http://www.youtube.com/watch?v=z3w4_VGAusM)
+[![Youtube video of the demo](http://img.youtube.com/vi/z3w4_VGAusM/0.jpg)](http://www.youtube.com/watch?v=z3w4_VGAusM)
 
 Initially I am thinking to look at when nodes are created, modified and
 destroyed. Additionally to look at the document type and the content model as
