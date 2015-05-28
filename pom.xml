@@ -98,6 +98,11 @@
 			<artifactId>mockito-core</artifactId>
 			<version>1.10.19</version>
 		</dependency>
+		<dependency>
+			<groupId>com.timgroup</groupId>
+			<artifactId>java-statsd-client</artifactId>
+			<version>3.0.1</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<!-- Enterprise profile, manually activated, automatically adds support 
